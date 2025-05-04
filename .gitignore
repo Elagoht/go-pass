@@ -1,0 +1,19 @@
+// Misc
+.env
+
+// Go
+*.log
+*.log.*
+
+// IDE
+.idea
+.vscode
+
+// OS
+.DS_Store
+
+// binary
+go-pass
+
+// database
+*.db
