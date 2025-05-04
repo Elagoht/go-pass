@@ -52,7 +52,7 @@ func (service *AccountService) GetAllAccounts() ([]models.Account, error) {
 	}
 	defer rows.Close()
 
-	var accounts []models.Account
+	accounts := []models.Account{}
 	for rows.Next() {
 		var account models.Account
 		if err := rows.Scan(
