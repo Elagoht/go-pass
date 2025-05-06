@@ -81,6 +81,10 @@ func (controller *AccountController) UpdateAccount(writer http.ResponseWriter, r
 		utils.RespondWithError(writer, http.StatusNotFound, "Account not found")
 		return
 	} else if err != nil {
+		if err.Error() == sql.ErrNoRows.Error() {
+			utils.RespondWithError(writer, http.StatusNotFound, err.Error())
+			return
+		}
 		errorHandler.HandleValidationError(writer, err)
 		return
 	}
