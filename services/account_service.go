@@ -110,12 +110,18 @@ func (service *AccountService) UpdateAccount(id string, account *models.Account)
 		return nil, err
 	}
 
-	_, err = service.db.Exec(
+	result, err := service.db.Exec(
 		"UPDATE accounts SET platform = ?, url = ?, identity = ?, passphrase = ?, notes = ? WHERE id = ?",
 		account.Platform, account.URL, account.Identity, account.Passphrase, account.Notes, accountID,
 	)
+
 	if err != nil {
 		return nil, err
+	}
+
+	rowsAffected, _ := result.RowsAffected()
+	if rowsAffected == 0 {
+		return nil, sql.ErrNoRows
 	}
 
 	account.Id = accountID
